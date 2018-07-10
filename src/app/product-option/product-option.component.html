@@ -1,0 +1,37 @@
+<!--<div  *ngIf="cartConfig" class="row option-container" style="margin-top: -1.5px;">
+    
+     <div  *ngFor="let product of products$ | async | orderBy: {property: 'id', direction: 'ASC'}" 
+        ng-animate="'animate'"
+        class="col-lg-3 col-md-6 col-sm-8 col-xs-12 comp-{{product.id}}"  
+         style="padding-right: 0px;  padding-left: 0px;">
+ <div *ngIf="product && product.id <5 ">
+<ul >
+	
+  <li   *ngFor="let option of product.options ;let i = index; let odd = odd"
+         style="text-align: center;" class="functions-option comp-{{product.id}}" [class.odd]="odd"
+   > 
+
+      <span *ngIf="option==1"  class="fa tick"></span>
+      <span *ngIf="option==0"  class="fa notick"></span> 
+   
+    </li>
+     
+ </ul>    
+  </div>	 
+ </div>
+</div>
+-->
+   
+    
+	 <ul *ngFor="let option of optionRows ;let i = index; let odd = odd"  class="compare-row" [class.odd]="odd" >
+      <li class="col-1" >
+        {{option.itemOption}}
+      </li>
+      <li  *ngFor="let optionP of option.row ;let j = index;  "
+            class="col-2 col-2-{{j+2}}"   > 
+
+        <span *ngIf="optionP==1"  class="fa tick"></span>  
+        <span *ngIf="optionP==0"  class="fa notick">&nbsp;</span>     
+      </li>
+   </ul>
+ 

@@ -1,4 +1,4 @@
-export class Product{
+export interface ITodo {
   id: number
   name: string
   price: number
@@ -12,10 +12,8 @@ export class Product{
   baseprice: string
   tagline: string
   taglineoptions: string []
-  toshow: boolean
+  toshow: number
   discount: number
   code: string
   sku : string
- 
-
 }

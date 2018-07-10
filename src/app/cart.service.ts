@@ -17,8 +17,9 @@ export class CartService {
   constructor() { }
 
   addProductToCart(product){
+    this.flushCart();
     let exists = false
-    let parsedPrice = parseFloat(product.price.replace(/\./g, '').replace(',', '.'))
+    let parsedPrice   = parseFloat(product.price)
     this.cartTotal += parsedPrice
     //Search this product on the cart and increment the quantity
     this.products = this.products.map(_product => {
@@ -36,7 +37,7 @@ export class CartService {
         quantity:1
       })
     }
-
+   
     this.productAddedSource.next({ products: this.products, cartTotal: this.cartTotal })
   }
 

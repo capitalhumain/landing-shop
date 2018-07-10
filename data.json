@@ -1,21 +1,4 @@
-export const DATA: any  = {'categories': [
-    {
-      'categori_id': 1,
-      'name': 'drinks'
-    },
-    {
-      'categori_id': 2,
-      'name': 'lunch'
-    },
-    {
-      'categori_id': 3,
-      'name': 'food'
-    },
-    {
-      'categori_id': 4,
-      'name': 'sea'
-    }
-  ],
+{
   "config": {
     "currency": "€",
     "yourcart": "Ihr Warenkorb",
@@ -46,8 +29,8 @@ export const DATA: any  = {'categories': [
       "yourchoice": "Sie haben PDF Experte 11 Konverter gewählt",
       "price": "29,99",
       "baseprice": "29,99",
-      "image": "http://cart.expert-pdf.com/landingShop/images/fr/Pack_Converter11_DE_small.png",
-      "imagebig": "http://cart.expert-pdf.com/landingShop/images/fr/Pack_Converter11_DE_big.png",
+      "image": "images/fr/Pack_Converter11_DE_small.png",
+      "imagebig": "images/fr/Pack_Converter11_DE_big.png",
       "tobuy": 0,
       "tagline": "PDF Experte 11 Konverter ist die umfassende PDF-Lösung mit allen Werkzeugen zum Erstellen und Konvertieren von PDF-Dateien.",
       "taglineoptions": [
@@ -80,8 +63,8 @@ export const DATA: any  = {'categories': [
       "yourchoice": "Sie haben PDF Experte 11 Home gewählt",
       "price": "49,99",
       "baseprice": "49,99",
-      "image": "http://cart.expert-pdf.com/landingShop/images/fr/Pack_Home11_DE_small.png",
-      "imagebig": "http://cart.expert-pdf.com/landingShop/images/fr/Pack_Home11_DE_big.png",
+      "image": "images/fr/Pack_Home11_DE_small.png",
+      "imagebig": "images/fr/Pack_Home11_DE_big.png",
       "tobuy": 1,
       "tagline": "PDF Experte 11 Home ist die umfassende PDF-Lösung mit allen Werkzeugen zum Erstellen, Konvertieren und Bearbeiten von PDF-Dateien.",
       "taglineoptions": [
@@ -114,8 +97,8 @@ export const DATA: any  = {'categories': [
       "yourchoice": "Sie haben PDF Experte 11 Professional gewählt",
       "price": "79,99",
       "baseprice": "79,99",
-      "image": "http://cart.expert-pdf.com/landingShop/images/fr/Pack_Professional11_DE_small.png",
-      "imagebig": "http://cart.expert-pdf.com/landingShop/images/fr/Pack_Professional11_DE_big.png",
+      "image": "images/fr/Pack_Professional11_DE_small.png",
+      "imagebig": "images/fr/Pack_Professional11_DE_big.png",
       "tobuy": 0,
       "tagline": "PDF Experte 11 Professional ist die umfassende PDF-Lösung mit allen Werkzeugen zum Erstellen, Konvertieren, Bearbeiten und sicheren Teilen von PDF-Dateien.",
       "taglineoptions": [
@@ -149,8 +132,8 @@ export const DATA: any  = {'categories': [
       "yourchoice": "Sie haben PDF Experte 11 Ultimate gewählt",
       "price": "119,99",
       "baseprice": "119,99",
-      "image": "http://cart.expert-pdf.com/landingShop/images/fr/Pack_Ultimate11_DE_small.png",
-      "imagebig": "http://cart.expert-pdf.com/landingShop/images/fr/Pack_Ultimate11_DE_big.png",
+      "image": "images/fr/Pack_Ultimate11_DE_small.png",
+      "imagebig": "images/fr/Pack_Ultimate11_DE_big.png",
       "tobuy": 0,
       "tagline": "Der professionelle PDF-Manager - zum Konvertieren, Erstellen & Editieren von PDFs",
       "taglineoptions": [
@@ -185,8 +168,8 @@ export const DATA: any  = {'categories': [
       "yourchoice": "Sie haben das OCR-Modul gewählt",
       "price": "39,99",
       "baseprice": "29,99",
-      "image": "http://cart.expert-pdf.com/landingShop/images/fr/Pack_OCR11_DE_small.png",
-      "imagebig": "http://cart.expert-pdf.com/landingShop/images/fr/Pack_OCR11_DE_big.png",
+      "image": "images/fr/Pack_OCR11_DE_small.png",
+      "imagebig": "images/fr/Pack_OCR11_DE_big.png",
       "tobuy": 0,
       "tagline": "Wandeln Sie gescannte Dokumente und Bilder in editierbare PDFs um",
       "taglineoptions": [

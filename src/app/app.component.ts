@@ -1,12 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, Inject, enableProdMode, AfterViewInit, ViewChild, NgModule, OnInit } from '@angular/core';
+import { Routes, Router } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
+import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
+import { NgRedux, select } from '@angular-redux/store';
+
+import { IAppState } from './store';
+import { ADD_TODO, REMOVE_TODO, TOGGLE_TODO, LOAD_TODO } from './actions';
+import { ITodo } from './todo';
+
 import { Product } from './shared/product.model';
 import { DataService } from './data.service';
 import { CartService } from './cart.service';
-import { AfterViewInit, ViewChild } from '@angular/core';
 
-import { FiltersComponent } from './filters/filters.component';
-import { SearchBarComponent } from './search-bar/search-bar.component';
+import { CartComponent } from './cart/cart.component';
 
+ 
+import { CookieService } from 'ngx-cookie-service';
+import { Subscription } from 'rxjs/Subscription';
+
+
+ 
+enableProdMode();
 
 @Component({
   selector: 'app-root',
@@ -14,210 +28,117 @@ import { SearchBarComponent } from './search-bar/search-bar.component';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit{
+@select() products;
 
-  products: Product[]
+  model: ITodo ;
 
-  mainFilter: any
-
-  currentSorting: string
-
-  @ViewChild('filtersComponent')
-  filtersComponent: FiltersComponent;
-
-  @ViewChild('searchComponent')
-  searchComponent: SearchBarComponent;
-
-  sortFilters: any[] = [
-    { name:'Name (A to Z)', value:'name' },
-    { name:'Price (low to high)', value:'priceAsc' },
-    { name:'Price (high to low)', value:'priceDes' }
-  ]
-
-  customFilters: any[] = [
-    { name:'All', value:'all', checked:true },
-    { name:'Available', value:'available', checked:false },
-    { name:'Not Available', value:'unavailable', checked:false },
-    { name:'Bestseller', value:'bestseller', checked:false }
-  ]
-
-  priceFilters: any[] = [
-    { name:'All', value:'all', checked:true },
-    { name:'Price > 30.000', value:'more_30000', checked:false },
-    { name:'Price < 10.000', value:'less_10000', checked:false }
-  ]
+  //products: Product[];
+  cartConfig: {};
+  private _pdtSvc: DataService;
+  allCookies = {} ;
+  banner = "banner_PDF_12.jpg";
+  tobuy: string
+  cuture: string
+  mkey1: string
+  version: string
+  rs2: string
+  userParams: any = {} ;
+  public apiUrl="http://cart.expert-pdf.com/appData12_UPG.cfm?culture=de&version=12&has=View_Create_Convert_Edit_Insert_Review_Secure_Forms";
+  subscription; // <- New;
+ @ViewChild('CartComponent')
+ 
+ CartComponent: CartComponent;
 
   originalData: any = []
+  
+  constructor(private ngRedux: NgRedux<IAppState>, private _sanitizer: DomSanitizer, private ActiveRoute: ActivatedRoute, private cookieService: CookieService, private dataService: DataService, private cartService: CartService,@Inject(DataService) pdtSvc: DataService){ 
+   
+    this._pdtSvc = pdtSvc;
 
-  constructor(private dataService: DataService, private cartService: CartService){  }
-
-  ngOnInit(){
-
-
-    this.dataService.getData().then(data => {
-      this.originalData = data
-      this.mainFilter = {
-        search: '',
-        categories: this.originalData.categories.slice(0),
-        customFilter: this.customFilters[0],
-        priceFilter: this.priceFilters[0]
-      }
-
-      //Make a deep copy of the original data to keep it immutable
-      this.products = this.originalData.products.slice(0)
-      this.sortProducts('name')
-    })
+    let  userParams: any = {} ; 
+    const allCookies: {} = cookieService.getAll();
+    if(allCookies['CFCLIENT_EXPERTPDF']){
+      let userdata = allCookies['CFCLIENT_EXPERTPDF'].toString().split('#');
+      userdata.forEach(function(value){
+      let keypair = value.split('=')
+      if(keypair[1] ) userParams[keypair[0]] = keypair[1];
+      
+    });
   }
+    
+    this.userParams = userParams
+    this.userParams['version'] = 12 ;
+    this.userParams['tobuy'] = "home" ;
+     
+    this.ActiveRoute.queryParams.subscribe(
+      // The 1st callback handles the data emitted by the observable.
+      // In your case, it's the JSON data extracted from the response.
+      // That's where you'll find your total property.
+      (params: Params) => {
+        let _queryParem = params;
+         
+
+         for(let key in _queryParem){
+              this.cookieService.set( key, _queryParem[key] );
+         }
+        if(_queryParem['version'] && _queryParem['has'] && _queryParem['culture']){
+                this.userParams['version'] = _queryParem['version'];
+                this.userParams['tobuy']  = _queryParem['has'] ;
+                this.userParams['culture']  = _queryParem['culture'] ;
+                this.apiUrl = "http://cart.expert-pdf.com/appData"+this.userParams['version']+"_UPG.cfm?has="+this.userParams['tobuy']+"&culture="+this.userParams['culture'] ;
+                this.onURLChange(this.apiUrl);    
+        } 
+        
+      },
+      // The 2nd callback handles errors.
+      (err) => console.error(err),
+      // The 3rd callback handles the "complete" event.
+      () =>  console.info("done"),
+     
+    );
+
+
+   }
+    getBackground() {
+      const bckgUrl = 'http://cart.expert-pdf.com/landingShop/images/fr/'+"banner_Expert_PDF_"+this.userParams['version']+".jpg";
+      let urlimage = `url(${bckgUrl})`
+        if(this.userParams['version'] && this.userParams['version'].toString().indexOf('10') > 1){
+            urlimage = `max-width(100%),background-size(cover),url(${bckgUrl})`
+         }
+       return this._sanitizer.bypassSecurityTrustStyle(urlimage);
+    }
+
+
+   ngOnInit(){
+   
+       
+  }
+
+ obSubmit() {
+    this.ngRedux.dispatch({type: ADD_TODO, todo: this.model});
+  }
+
+  toggleTodo(todo) {
+    this.ngRedux.dispatch({ type: TOGGLE_TODO, id: todo.id });
+  }
+
+  removeTodo(todo) {
+    this.ngRedux.dispatch({type: REMOVE_TODO, id: todo.id });
+  }
+ 
+   ngAfterViewChecked(): void {
+     
+     this.banner = "banner_Expert_PDF_"+this.userParams['version']+".jpg";
+   }
 
   onURLChange(url){
     this.dataService.getRemoteData(url).subscribe(data => {
-      this.originalData = data
-      this.mainFilter = {
-        search: '',
-        categories: this.originalData.categories.slice(0),
-        customFilter: this.customFilters[0],
-        priceFilter: this.priceFilters[0]
-      }
-
-      //Make a deep copy of the original data to keep it immutable
-      this.products = this.originalData.products.slice(0)
-      this.sortProducts('name')
-      this.filtersComponent.reset(this.customFilters, this.priceFilters)
-      this.searchComponent.reset()
+      this.originalData = data  
+      this.cartConfig = this.originalData.config;
+      this.cartConfig['userParams'] = this.userParams;
+      var localProduct = this.originalData.products.slice(0) ;
+      this.ngRedux.dispatch({type: LOAD_TODO, products: localProduct });
       this.cartService.flushCart()
     })
-  }
-
-
-
-  onSearchChange(search){
-    this.mainFilter.search = search.search
-    this.updateProducts({
-      type:'search',
-      change:search.change
-    })
-  }
-
-  onFilterChange(data){
-    if(data.type == 'category'){
-      if(data.isChecked){
-        this.mainFilter.categories.push(data.filter)
-      }else{
-        this.mainFilter.categories = this.mainFilter.categories.filter(category => { return category.categori_id != data.filter.categori_id })
-      }
-    }else if(data.type == 'custom'){
-      this.mainFilter.customFilter = data.filter
-    }else if(data.type == 'price'){
-      this.mainFilter.priceFilter = data.filter
-    }
-    this.updateProducts({
-      type:data.type,
-      change: data.change
-    })
-  }
-
-  updateProducts(filter){
-    let productsSource = this.originalData.products
-    let prevProducts = this.products
-    let filterAllData = true
-    if((filter.type=='search' && filter.change == 1) || (filter.type=='category' && filter.change == -1)){
-      productsSource = this.products
-      filterAllData = false
-    }
-    //console.log('filtering ' + productsSource.length + ' products')
-
-    this.products = productsSource.filter(product => {
-      //Filter by search
-      if(filterAllData || filter.type=='search'){
-        if (!product.name.match(new RegExp(this.mainFilter.search, 'i'))){
-          return false;
-        }
-      }
-
-      //Filter by categories
-      if(filterAllData || filter.type=='category'){
-        let passCategoryFilter = false
-        product.categories.forEach(product_category => {
-          if(!passCategoryFilter){
-            passCategoryFilter = this.mainFilter.categories.reduce((found, category) => {
-                return found || product_category == category.categori_id
-            }, false)
-          }
-        })
-        if(!passCategoryFilter){
-          return false
-        }
-      }
-
-      //Filter by custom filters
-      if(filterAllData || filter.type=='custom'){
-        let passCustomFilter = false
-        let customFilter = this.mainFilter.customFilter.value
-        if(customFilter == 'all'){
-          passCustomFilter = true;
-        }else if(customFilter == 'available' && product.available){
-          passCustomFilter = true;
-        }else if(customFilter == 'unavailable' && !product.available){
-          passCustomFilter = true;
-        }else if(customFilter == 'bestseller' && product.best_seller){
-          passCustomFilter = true;
-        }
-        if(!passCustomFilter){
-          return false
-        }
-      }
-
-      //Filter by price filters
-      if(filterAllData || filter.type=='price'){
-        let passPriceFilter = false
-        let customFilter = this.mainFilter.priceFilter.value
-        let productPrice = parseFloat(product.price.replace(/\./g, '').replace(',', '.'))
-        if(customFilter == 'all'){
-          passPriceFilter = true;
-        }else if(customFilter == 'more_30000' && productPrice > 30000){
-          passPriceFilter = true;
-        }else if(customFilter == 'less_10000' && productPrice < 10000){
-          passPriceFilter = true;
-        }
-        if(!passPriceFilter){
-          return false
-        }
-      }
-
-      return true
-    })
-
-    //If the number of products increased after the filter has been applied then sort again
-    //If the number of products remained equal, there's a high chance that the items have been reordered.
-    if(prevProducts.length <= this.products.length && this.products.length>1){
-      this.sortProducts(this.currentSorting)
-    }
-
-    //These two types of filters usually add new data to the products showcase so a sort is necessary
-    if(filter.type == 'custom' || filter.type == 'price'){
-      this.sortProducts(this.currentSorting)
-    }
-  }
-
-  sortProducts(criteria){
-    //console.log('sorting ' + this.products.length + ' products')
-    this.products.sort((a,b) => {
-      let priceComparison = parseFloat(a.price.replace(/\./g, '').replace(',', '.')) - parseFloat(b.price.replace(/\./g, '').replace(',', '.'))
-      if(criteria == 'priceDes'){
-        return -priceComparison
-      }else if(criteria == 'priceAsc'){
-        return  priceComparison
-      }else if(criteria == 'name'){
-        let nameA=a.name.toLowerCase(), nameB=b.name.toLowerCase()
-        if (nameA < nameB)
-          return -1;
-        if (nameA > nameB)
-          return 1;
-        return 0;
-      }else{
-        //Keep the same order in case of any unexpected sort criteria
-        return -1
-      }
-    })
-    this.currentSorting = criteria
   }
 }
