@@ -2,7 +2,7 @@
 
 This is an example project to show an implementation of a fancy, responsive, cross browser compatible (IE11) shop/ecommerce webapp made on Angular 2.
 
-**Demo:** [carlosroso.com/angular2-shop](http://carlosroso.com/angular2-shop/)
+**Demo:** [capitalhumain.github.io/landing-shop/](https://capitalhumain.github.io/landing-shop/)
 
 ## Features
 * Sort products by name, price (asc) and price (desc)
@@ -10,14 +10,14 @@ This is an example project to show an implementation of a fancy, responsive, cro
 * Filter products by categories, price range, availability, and more custom filters.
 * Add products to the shopping cart
 * See details and manage the shopping cart
-* You can also load your own data through the app. You'll see a red button with a *link* icon, click it and paste the URL. The JSON file must follow a specific format. [see example here](http://carlosroso.com/angular2-shop-json/). **IMPORTANT:** Make sure you set the appropriate `Access-Control-Allow-Methods` header on your JSON HTTP response. 
+* You can also load your own data through the app. You'll see a red button with a *link* icon, click it and paste the URL. The JSON file must follow a specific format. [see example here](angular2-shop-json/). **IMPORTANT:** Make sure you set the appropriate `Access-Control-Allow-Methods` header on your JSON HTTP response. 
 * **Pretty good looking UI and some fancy animations to improve UX**
 
 ## Installation
 
 Clone the project
 ```bash
-git clone https://github.com/caroso1222/angular2-shop
+git clone https://github.com/capitalhumain/angular2-shop
 ```
 
 Install npm dependencies inside the project folder
