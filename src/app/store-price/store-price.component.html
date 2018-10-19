@@ -1,0 +1,77 @@
+
+ <ul class="prod-compare-prods" id="prod-compare-prods"  itemprop="hasOfferCatalog" itemscope itemtype="http://schema.org/OfferCatalog">
+      <li class="col-1"  >
+        &nbsp;
+      </li>
+      <li *ngFor="let product of products$ | async | slice:0:4 ; trackBy product?.id| orderBy: {property: 'id', direction: 'ASC'}"
+          class="product col-2 col-2-{{product.id+1}}" >
+
+
+          <div class="prod_price"   >
+
+            <s >{{product.baseprice | euroFormat:cartConfig.currencySymbol }}</s>
+            <strong class="offer" >{{product.price | euroFormat:cartConfig.currencySymbol }}</strong>
+        </div>
+
+           <a href="javascript:void(0);"   class="btn buy gotit download" *ngIf="product.toshow === 0; else tobuyTemplate" >
+          <b > {{cartConfig.action}}</b>
+        </a>
+
+        <ng-template #tobuyTemplate>
+          <a href="javascript:void(0);" class="btn buy download "
+               (click) ="saveData(product.id);checkout(product)"   >
+              <b> {{cartConfig.action}}</b>
+          </a>
+        </ng-template>
+      </li>
+</ul>
+
+<!--
+<ul class="prod-compare-prods" id="prod-compare-prods">
+          <li class="col-1">
+            &nbsp;
+          </li>
+
+      <li *ngFor="let product of products$ | async | slice:0:4 ; trackBy product?.id| orderBy: {property: 'id', direction: 'ASC'}"
+          class="col-2 col-2-{{product.id+1}}">
+        <div class="products">
+          <div class="packshot" >
+            <img width="245" height="300"  src="http://cart.expert-pdf.com/landingShop/{{product.imagebig}}"  (click)="onAddToCart(product)"  />
+            <div *ngIf="getUpSellDif(product.id) > 0 && product.upsell && product.toshow === 1; else UpSellDiscount" class="upsell-price-container" >
+              <span class="upsell-price" >
+                {{getUpSellDif(product.id) | euroFormat:cartConfig.currencySymbol}} {{cartConfig.more}}
+              </span>
+            </div>
+            <ng-template #UpSellDiscount>
+                <div *ngIf="getUpSellDiscount(product.id) && product.upsell && product.toshow === 1" class="discount-price-container" >
+                  <span class="discount-price" > - {{getUpSellDiscount(product.id)}}</span>
+                </div>
+            </ng-template>
+          </div>
+        </div>
+
+        <h3 class="title"   ><span class="text-center"><div [innerHTML]="product.name"></div></span>
+        </h3>
+
+        <div class="prod_price" [ngClass]="{'noprice':getUpSellDif(product.id) <= 0,'price': getUpSellDif(product.id) > 0 }" >
+            <s *ngIf="product.discount > 1 ">{{product.baseprice | euroFormat:cartConfig.currencySymbol }}</s>
+            <s *ngIf="product.discount <= 1 " style="color:white">&nbsp;</s>
+            <strong class="offer">{{product.price | euroFormat:cartConfig.currencySymbol }}</strong>
+        </div>
+
+        <div class="gotit" *ngIf="product.upsell === 0 && product.toshow === 0; else tobuyTemplate">
+         &nbsp;got it
+        </div>
+
+        <ng-template #tobuyTemplate>
+          <div class="btn buy download buy-track"  [ngClass]="{'gotit':product.toshow === 0 ,'buy btn--green': product.toshow === 1  }"
+
+               (addToCart) ="saveData($event)"   >
+               {{cartConfig.action}}
+          </div>
+        </ng-template>
+
+      </li>
+ </ul>
+-->
+

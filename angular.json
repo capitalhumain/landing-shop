@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "angular2-store": {
+    "angular2-landing-store": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -50,18 +50,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "angular2-store:build"
+            "browserTarget": "angular2-landing-store:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "angular2-store:build:production"
+              "browserTarget": "angular2-landing-store:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "angular2-store:build"
+            "browserTarget": "angular2-landing-store:build"
           }
         },
         "test": {
@@ -97,7 +97,7 @@
         }
       }
     },
-    "angular2-store-e2e": {
+    "angular2-landing-store-e2e": {
       "root": "",
       "sourceRoot": "e2e",
       "projectType": "application",
@@ -106,7 +106,7 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "./protractor.conf.js",
-            "devServerTarget": "angular2-store:serve"
+            "devServerTarget": "angular2-landing-store:serve"
           }
         },
         "lint": {
@@ -123,7 +123,7 @@
       }
     }
   },
-  "defaultProject": "angular2-store",
+  "defaultProject": "angular2-landing-store",
   "schematics": {
     "@schematics/angular:component": {
       "prefix": "app",

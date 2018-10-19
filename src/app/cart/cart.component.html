@@ -1,18 +1,24 @@
-<div class="row centered"  *ngFor="let item of products" id="cart">
-      <div class="col-md-9 cart-container">
-        <div class="product_descript text-center" >
-          <h3 class="product-title"><span > {{item.product.yourchoice}} </span><br /><span [innerHTML]="item.product.name.replace('<br>', '')"></span></h3>
+<div *ngFor="let item of products">
+  <h3 class="product-title row ">
+            <span class="text-center" [innerHTML]="item.product.Tagline.replace('\n', '<br>')"></span><br>
+            <span>{{cartConfig.features}}</span>
+</h3>
+<div class="centered container-fluid row row-eq-height"   id="cart">
+      <div class="cart-container col-md-9 col-sm-12 col-xs-12">
+        <div class="product_descript text-center " >
+
           <div class="selection row"  >
-            <div class="selection-packshot-wrapper col-md-4 col-sm-4 col-xs-4" style="height: 195px;">
-             <img src="http://cart.expert-pdf.com/landingShop/{{item.product.imagebig}}"  class="selection-packshot-hover img-responsive"  alt="{{item.product.name}}" /> 
+            <div class="selection-packshot-wrapper col-md-3 col-sm-12 col-xs-12">
+             <img src="http://cart.expert-pdf.com/landingShop/{{item.product.imagebig}}"  class="selection-packshot-hover img-responsive"  alt="{{item.product.name}}" />
             </div>
-            <div class="selection-option-container col-md-8 col-sm-8 col-xs-8">
-               <div [innerHTML]="item.product.tagline"></div> 
-              <ul class="selection-options" title="{{cartConfig.features}}" >
-               
-                 <li  class="" *ngFor="let taglineoption of item.product.taglineoptions" >
-                    
-                    <div [innerHTML]="taglineoption"></div> 
+            <div class="selection-option-container col-md-9 col-sm-12 col-xs-12">
+              <div class="row"> </div>
+              <ul class="selection-options" style="margin-bottom: 0px;margin: 10px 10px 0 10px;padding: 10px 10px 0 10px;;bottom: 7px;
+    position: absolute;">
+
+                 <li   style="">
+
+                    <div [innerHTML]="getOptions(item.product)"></div>
                  </li>
               </ul>
             </div>
@@ -20,15 +26,12 @@
         </div>
       </div>
       <div class="col-md-3 col-sm-12 col-xs-12 cart-container" style="padding-right: 0px;margin-top: auto;
-    margin-bottom: auto;">
+    margin-bottom: 0px;">
         <div class="row basket"  >
-          <h1 class="product-title">
-            <img src="http://cart.expert-pdf.com/landingShop/images/fr/blue_basket.png"/>
-             {{cartConfig.yourcart}}
-          </h1>
+
           <div class="basket-price-container row"     >
-            <span class="basket-price"> {{item.product.price | euroFormat:'€'  }}</span>
-            <del ng-if="cart.discount > 0"> {{item.product.baseprice | euroFormat:'€' }}  </del>
+            <span class="basket-price"> {{item.product.price | euroFormat:cartConfig.currencySymbol }}</span>
+            <del ng-if="cart.discount > 0"> {{item.product.baseprice | euroFormat:cartConfig.currencySymbol}}  </del>
             <br>
           </div>
         </div>
@@ -42,5 +45,5 @@
       </div>
       </div>
     </div>
-
+</div>
 

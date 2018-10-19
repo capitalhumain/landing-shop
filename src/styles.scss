@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
  @import '~bootstrap/dist/css/bootstrap.min.css';
- 
+
 $font-family:Open Sans, Arial, Tahmoa, Calibri;
 $color_1: #000;
 $color_2: red;
@@ -59,12 +59,15 @@ ul.selection-options {
     margin-top: 4px;
     margin-left: -25px;
 }
+ul.selection-options li{
+    list-style-type: none;
+}
 ul.selection-options:before {
     content: attr(title);
     font-size: 180%;
     font-weight: bold;
     margin-left: -15px;
-} 
+}
 .product-title{
   padding-bottom: 10px;
 }
@@ -270,7 +273,7 @@ ul.selection-options:before {
     }
   }
 }
- 
+
 
 .btn.buy {
     background: #ffb341;
@@ -303,7 +306,7 @@ ul.selection-options:before {
     top: 0;
   }
   img, .prod_price {
-   
+
   }
   .prod-compare-prods {
     margin: 0 auto;
@@ -334,7 +337,7 @@ ul.selection-options:before {
 
 .upsell-price-container, .discount-price-container {
   display: block;
-   
+
   background: #09c;
   font-weight: 900 ;
     font-size: 1em;
@@ -387,7 +390,7 @@ margin-top: 0;
     cursor: pointer;
     min-width: 88px !important;
     height: auto;
-    
+
   }
 }
 .text-block .discount-disc {
@@ -427,7 +430,7 @@ body{font-size:90%;}
 
 .compare-table-wrap a.buy.download {
     font-size: 0.7em;
-    
+
 }
 .compare-table-wrap ul{display:block; padding-left: 0px;}
 .compare-table-wrap .col-1{width:100%;display:block; max-width: 100%;}
@@ -468,9 +471,9 @@ body{font-size:80%;}
 }
 
 .gotit {
-   
+
   background-color: $white;
-  
+
   color: $white;
 }
 
@@ -479,12 +482,27 @@ a, a:hover {
     text-decoration: none;
     outline: 0;
 }
+.compare-table-wrap ul.prod-compare-prods li.col-2-6 h3{
+  padding-top: 0px;
+}
 .compare-table-wrap .col-1 {
-    
+
     padding-left: 0px;
 }
 .compare-table-wrap ul {
-   
+
     padding-left: 0px;
 }
- 
+
+.sticky-compare-prods{
+  img {
+    position: relative;
+    margin: 0 ;
+    padding: 0;
+    border: 0;
+    cursor: pointer;
+    max-width: 150px !important;
+    height: auto;
+
+  }
+}

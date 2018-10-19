@@ -2,9 +2,51 @@
     text-align: left;
 }
 .card {
-    
-     border: 0px; 
-    
+
+     border: 0px;
+
 }
 
- 
+ .row-eq-height {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display:         flex;
+  padding-bottom: 20px;
+}
+span {
+  display: inline-block;
+
+  text-align: center;
+}
+
+.product-title {
+    padding-bottom: 10px;
+    display: inline-block;
+    width: 100%;
+}
+
+ul li .selection-options{
+  margin-bottom: 0px;
+  margin-left: 10px;
+  padding-left: 10px;
+ }
+
+
+  .btn.buy, .submit.button {
+    background: #08c34a;
+    color: #fff;
+    font-weight: 700;
+    font-size: 21px;
+    text-transform: uppercase;
+    text-align: center;
+    display: inline-block;
+padding:5px 10px;
+         margin: 5px;
+     letter-spacing: 2px;
+    background: linear-gradient(to left, #08c34a 50%, #099A3C 50%);
+    background-size: 200% 100%;
+    background-position: right bottom;
+    transition: all 0.5s ease-in-out;
+}
+

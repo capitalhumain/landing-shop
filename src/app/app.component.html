@@ -1,22 +1,51 @@
+<div class="container">
 
-  <div class="container ">
-   
-  <div class="" *ngIf="cartConfig">
- 
-    
-  <cart [cartConfig]='cartConfig' ></cart>
-   
+	<div class="table-form" *ngIf="cartConfig">
+    <app-dropdown></app-dropdown>
+		<app-cart [cartConfig]='cartConfig' ></app-cart>
+		<div class="container compare-table-wrap" >
 
-<div class="container compare-table-wrap" >
-      
- <div class="col-md-12 text-center" style="padding: 15px 0px 30px 0;"><h3>{{cartConfig.yourversion}} </h3></div>  
-        
-        <store   [cartConfig]='cartConfig' ></store>
-        
-        <product-option   [cartConfig]='cartConfig' ></product-option>
-</div>  
-  
+
+
+		    <section  itemscope itemtype="https://schema.org/Product">
+		      <app-store [cartConfig]='cartConfig' ></app-store>
+		    </section>
+
+		    <app-product-option  > </app-product-option>
+
+		    <app-store-price [cartConfig]='cartConfig' ></app-store-price>
+		</div>
+
+	</div>
+<div *ngIf="!cartConfig" class="container text-block upgrade-first">
+  <app-dropdown></app-dropdown>
+  <div class="container text-block upgrade-first">
+  <h1 class="title">Expert PDF 12 Update</h1>
+<p style="font-size: 20px;">In order to provide you with the appropriate update, please fill in the information below regarding your current version of Expert PDF.</p>
+
+  <div class="container product"><div class="text-block"><h2>What’s new in Expert PDF 12</h2>
+<p><img src="http://www.expert-pdf.com/wp-content/uploads/2018/06/icones_en.jpg" alt="What's new in Expert PDF 12" width="684" height="169" class="size-full wp-image-1388 aligncenter" srcset="https://www.expert-pdf.com/wp-content/uploads/2018/06/icones_en.jpg 684w, https://www.expert-pdf.com/wp-content/uploads/2018/06/icones_en-300x74.jpg 300w" sizes="(max-width: 684px) 100vw, 684px" data-pagespeed-url-hash="1939581510"></p>
+<p><b>NEW! Custom Tab</b><br>
+– Personalize a menu with your most-used features for quick access.</p>
+<p><b>NEW! Search &amp; Replace</b><br>
+– Search for a specific keyword in a PDF file and automatically replace it with another word.</p>
+<p><b>NEW! Right Click options menu in View and Select modes</b><br>
+– Easily highlight, strikethrough, underline.<br>
+– Redact selection, Search selection, Create Link.<br>
+– Take Snapshot, Search Document.<br>
+– Insert Bookmarks and Sticker Notes.</p>
+<p><b>IMPROVED! Side by Side View</b></p>
+<p><b>IMPROVED! Virtual Drives Access</b><br>
+– Connect to a virtual drive as Dropbox, Box or Google Drive to Save and Open directly your files.</p>
+<p><b>NEW! Redaction Tool</b><br>
+– Remove any content with a click of a button, text and picture.</p>
+<p><b>NEW! Search &amp; Redact</b><br>
+– Search for a specific keyword or expression in a PDF file and automatically redact it.</p>
+<p><b>NEW! Measurement Tool</b><br>
+– Measure the distance between two points,<br>
+– Outline a polygon to measure its perimeter,<br>
+– Outline a polygon to measure its area,<br>
+– Calibrate measurements tools.</p>
+</div><div class="clear"></div></div>
 </div>
 
-
- 

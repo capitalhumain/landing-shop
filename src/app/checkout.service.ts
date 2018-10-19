@@ -2,24 +2,29 @@
 import { Injectable } from '@angular/core';
 import { DOCUMENT } from '@angular/platform-browser';
 import { Headers, RequestOptions } from '@angular/http';
+import { CookieService } from 'ngx-cookie-service';
 
 declare var $: any;
+
 // Common data service
 @Injectable()
 export class CheckoutService {
-    
+
+constructor(
+              private cookieService: CookieService ) {
+}
 
     checkout(serviceName, cartItems) {
-         
-        return    this.checkoutPayPal( cartItems,serviceName);
-         
+
+        return    this.checkoutPayPal( cartItems, serviceName);
+
     }
 
     private checkoutPayPal( cartItems, serviceName) {
-        console.log(cartItems)
-        console.log(serviceName)
+      const allCookies: {} = this.cookieService.getAll();
+      const scn = this.cookieService.get( 'scn');
         // global data
-        var data = {
+        const data = {
             cmd: '_cart',
             business: 'upclick',
             upload: '1',
@@ -28,12 +33,30 @@ export class CheckoutService {
         };
 
         // item data
-        for (var i = 0; i < 1; i++) {
-            var item = cartItems[i];
+        for (let i = 0; i < 1; i++) {
+            const item = cartItems[i];
         }
+        let customTracking = '';
+         customTracking +='&key2=AQ_'+serviceName.Culture+'_IA_'+scn.toUpperCase();
 
-         
+        for (const tracking in serviceName.userParams) {
+          if (serviceName.userParams.hasOwnProperty(tracking)) {
+              customTracking = '&' + tracking + '=' + serviceName.userParams[tracking];
+          }
 
+
+        }
+       if ( allCookies['gclid']) {
+        const userdata = allCookies['gclid'].toString();
+          customTracking += '&gclid=' + userdata;
+
+        }
+        if (allCookies['msclkid']) {
+        const userdata = allCookies['msclkid'].toString();
+          customTracking += '&utm_source=bing&utm_medium=cpc&msclkid=' + userdata;
+
+        }
+/*
         var rs = serviceName.userParams.rs2
         var sku =   cartItems[0].product.sku;
         var code =  serviceName.userParams.tobuy;
@@ -44,24 +67,24 @@ export class CheckoutService {
         var key ='AQ_'+lang+'_IA_EXPDF_'+rs+'_'+code+'_FROM_'+version;
         if(version === '12_UPG'){
             key ='AQ_'+lang+'_IA_UPG_EXPDF_'+rs+'_'+code+'_FROM_'+version;
-        } 
+        }
         if(mkey=='AQ_FR_SEO_01_EXPDF'){
             key = mkey;
         }
-
-       var endPoint = "https://avanquest-store.upclick.com/clickgate/join/1030456/"+sku+'?mkey1='+key+'&culture='+lang+'&ref=expert-pdf.avanquest-store.upclick.com&phone=;0&uid='+uid;
-       return endPoint;
-    };
+ */
+       const endPoint = serviceName.buy_link + '&culture=' + serviceName.Culture + customTracking;
+      return endPoint;
+    }
 
 
     private addFormFields(form, data) {
         if (data != null) {
             $.each(data, function (name, value) {
                 if (value != null) {
-                    var input = $('<input></input>').attr('type', 'hidden').attr('name', name).val(value);
+                    const input = $('<input></input>').attr('type', 'hidden').attr('name', name).val(value);
                     form.append(input);
                 }
             });
         }
-    };
+    }
 }

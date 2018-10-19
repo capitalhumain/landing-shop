@@ -23,15 +23,33 @@
 -->
    
     
-	 <ul *ngFor="let option of optionRows ;let i = index; let odd = odd"  class="compare-row" [class.odd]="odd" >
+	 <ul *ngFor="let option of options$ | async ;let odd = odd"  class="compare-row" [class.odd]="odd" >
       <li class="col-1" >
-        {{option.itemOption}}
+      {{option.dataText}} 
       </li>
-      <li  *ngFor="let optionP of option.row ;let j = index;  "
-            class="col-2 col-2-{{j+2}}"   > 
 
-        <span *ngIf="optionP==1"  class="fa tick"></span>  
-        <span *ngIf="optionP==0"  class="fa notick">&nbsp;</span>     
+      <li  *ngIf="option.Converter"
+            class="col-2 col-2-2"   > 
+          
+          <span *ngIf="option.Converter=='YES'"  class="fa tick"></span>
+      </li>
+
+      <li  *ngIf="option.Home"
+            class="col-2 col-2-3"   > 
+         
+            <span *ngIf="option.Home=='YES'"  class="fa tick"></span>
+      </li>
+
+      <li  *ngIf="option.Professional"
+            class="col-2 col-2-4"   > 
+         
+            <span *ngIf="option.Professional=='YES'"  class="fa tick"></span>  
+      </li>
+      
+      <li  *ngIf="option.Ultimate"
+            class="col-2 col-2-5"   > 
+          
+            <span *ngIf="option.Ultimate=='YES'"  class="fa tick"></span>  
       </li>
    </ul>
  

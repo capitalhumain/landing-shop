@@ -1,0 +1,28 @@
+  <div class="table-form">
+        <form action="" method="get" id="version-form" class="second">
+           <select name="version" id="version" (change)="onChangeVersions($event.target.value)">
+            <option id="0" >Version Number</option>
+            <option *ngFor="let i of versions"
+            [ngValue]="i.name"
+            [selected]="i.name === versionNumber">{{i.name}}</option>
+          </select>
+          <select name="license" id="license" (change)="onChangeLicenses($event.target.value)" >
+            <option id="0" >Version Name</option>
+            <ng-container *ngFor="let i of licenses">
+
+          <ng-container *ngIf = "versionNumber === '12'">
+           <option [ngValue]="i.name" *ngIf="i.name!=='ultimate'"
+
+                  [selected]="i.name === versionName">{{i.name}}</option>
+         </ng-container>
+         <ng-container *ngIf = "versionNumber === '>12'">
+            <option [ngValue]="i.name"
+
+                  [selected]="i.name === versionName">{{i.name}}</option>
+         </ng-container>
+
+     </ng-container>
+          </select>
+
+        </form>
+  </div>
