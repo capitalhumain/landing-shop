@@ -1,11 +1,13 @@
 #cart > div.col-md-3.col-sm-12.col-xs-12.cart-container > div.row.centered > button{
     font-size: 16px;
 }
-#prod-compare-prods > li.product.col-2.col-2-25 > button > b{
+
+#prod-compare-prods > li.product.col-2 > button.btn.buy.download  > b{
     font-size: 11px;
     letter-spacing: 1px; 
 }
-#table-form > div > section > app-store > div:nth-child(2) > ul > li.product.col-2.col-2-3 > button > b{
-    font-size: 11px;
+
+#table-form > div > section > app-store > div > ul > li.product.col-2 > button b{
+    font-size: 10px;
     letter-spacing: 1px; 
 }
