@@ -4,7 +4,7 @@
 
 #prod-compare-prods > li.product.col-2 > button.btn.buy.download  > b{
     font-size: 10px;
-    letter-spacing: 1px; 
+    letter-spacing: 1px;
 }
 
 #table-form > div > section > app-store > div > ul > li.product.col-2 > button b {
@@ -14,4 +14,9 @@
 #prod-compare-prods > li.product.col-2 > button.btn.buy.download > b {
     font-size: 9px;
     letter-spacing: 1px;
+}
+button.btn.buy.download{
+
+  font-size: 9px;
+
 }
